@@ -44,8 +44,8 @@ const jsonLd = {
         "TypePilot, a free and open-source browser extension, received a cease-and-desist over its name from the separate commercial paid Dripwriter service. This is the response: the unregistered mark, the absence of confusion, and nominative fair use — alongside a feature-by-feature comparison.",
       datePublished: "2026-08-29",
       dateModified: "2026-08-29",
-      author: { "@type": "Person", name: "Alexey Fedorov" },
-      publisher: { "@type": "Person", name: "Alexey Fedorov" },
+      author: { "@type": "Person", name: "Tanush Kulkarni" },
+      publisher: { "@type": "Person", name: "Tanush Kulkarni" },
       about: { "@id": "https://typepilot.org/#app" },
       isPartOf: { "@id": "https://typepilot.org/#app" }
     },

@@ -91,14 +91,14 @@ export function Footer() {
 
         <div className="mt-16 pt-8 border-t border-[#1a1a1a] flex flex-col sm:flex-row justify-between gap-4">
           <p className="text-xs text-[#a0a0a0]">
-            © 2026 Alexey Fedorov · Noncommercial use free ·{" "}
+            © 2026 Tanush Kulkarni · Noncommercial use free ·{" "}
             <a
-              href="https://alexey-fedorov.com?utm_source=typepilot&utm_medium=footer&utm_campaign=backlink"
+              href="https://github.com/viperwraith47?utm_source=typepilot&utm_medium=footer&utm_campaign=backlink"
               target="_blank"
               rel="noopener"
               className="hover:text-[#c9a84c] transition-colors"
             >
-              alexey-fedorov.com
+              github.com/viperwraith47
             </a>
           </p>
           <p className="text-xs text-[#a0a0a0] tracking-[0.2em] uppercase">{VERSION_TAG}</p>

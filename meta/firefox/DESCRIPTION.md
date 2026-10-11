@@ -4,7 +4,7 @@ TypePilot types your text into any website — Google Docs, Canvas, the Packback
 
 **⭐️ FEATURED**
 
-FEATURED IN MANN BELLANI (`@mann.ascends`) AND ALEXEY FEDOROV (`@alexeyfedorov._`)'S
+FEATURED IN MANN BELLANI (`@mann.ascends`) AND TANUSH KULKARNI (`@viperwraith47`)'S
 VIDEO ('LARPSLAYER' SERIES): _HOW I MADE A FREE ALTERNATIVE TO TYPEPILOT_
 [instagram.com/reel/Dbz2SPnKwsx](https://www.instagram.com/reel/Dbz2SPnKwsx/)
 
@@ -130,4 +130,4 @@ Yes, for personal and noncommercial use. Commercial use requires a separate lice
 TypePilot is open source. Source code is available on [GitHub](https://github.com/viperwraith47/typepilot).
 
 
-Created by Alexey Fedorov.
+Created by Tanush Kulkarni.

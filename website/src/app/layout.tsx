@@ -76,7 +76,7 @@ const jsonLd = {
         "Free, open-source browser extension that types pasted text into any website — Google Docs, Canvas, Packback, and virtually any text box — with believable typos, deleted false starts, and short breaks.",
       author: {
         "@type": "Person",
-        name: "Alexey Fedorov"
+        name: "Tanush Kulkarni"
       },
       sameAs: [
         "https://github.com/viperwraith47/typepilot",

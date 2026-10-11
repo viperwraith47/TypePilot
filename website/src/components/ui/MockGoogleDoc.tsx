@@ -3,7 +3,7 @@
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 const DEMO_TEXT =
-  "TypePilot types your text into Google Docs, Canvas, and virtually any text box naturally, one keystroke at a time. It is completely free, open source, and has no ads. Unlike most tools that charge a subscription or push upsells, TypePilot gives you full control: adjustable speed, natural typos that fix themselves, and human-like pauses. Created by Alexey Fedorov.";
+  "TypePilot types your text into Google Docs, Canvas, and virtually any text box naturally, one keystroke at a time. It is completely free, open source, and has no ads. Unlike most tools that charge a subscription or push upsells, TypePilot gives you full control: adjustable speed, natural typos that fix themselves, and human-like pauses. Created by Tanush Kulkarni.";
 
 export function MockGoogleDoc() {
   const { displayed, done } = useTypingEffect(DEMO_TEXT);

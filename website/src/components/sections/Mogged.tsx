@@ -18,7 +18,7 @@ import { MOGGED_FAQ } from "@/components/sections/mogged-content";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
-// Local receipt assets — served from /public. These are Alexey's own received
+// Local receipt assets — served from /public. These are Tanush's own received
 // letter and his response, NOT links to the competitor. Kept clean-named for a
 // readable URL on a page whose whole point is "nothing redacted."
 const CD_HREF = "/cease-and-desist.pdf";

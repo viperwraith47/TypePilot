@@ -11,7 +11,7 @@ TypePilot is free. There is a single tier.
 - Install: https://extension.typepilot.org
 
 ## Commercial use
-- Commercial use requires a separate license. Contact alexey.max.fedorov@gmail.com.
+- Commercial use requires a separate license. Contact tanush.kulkarni.rg@gmail.com.
 
 ## Notes
 - No subscription, no monthly fee, no upsell, no tiers to compare.

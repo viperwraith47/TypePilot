@@ -63,7 +63,7 @@ const jsonLd = {
         "TypePilot v3 makes the extension cross-platform: it types with human cadence into Google Docs, Canvas, the Packback editor, and virtually any text box on any website. Free and open-source.",
       datePublished: "2026-08-29",
       dateModified: "2026-08-29",
-      author: { "@type": "Person", name: "Alexey Fedorov" },
+      author: { "@type": "Person", name: "Tanush Kulkarni" },
       about: { "@id": "https://typepilot.org/#app" },
       isPartOf: { "@id": "https://typepilot.org/#app" },
       softwareVersion: VERSION

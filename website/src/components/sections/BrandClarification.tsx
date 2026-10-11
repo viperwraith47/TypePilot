@@ -12,7 +12,7 @@ export function BrandClarification() {
         <div className="mt-16 bg-[#111] border border-[#1a1a1a] rounded-xl p-6 lg:p-8">
           <p className="text-[#a0a0a0] text-sm leading-relaxed">
             <span className="text-white font-semibold">TypePilot</span> is an
-            independent, open-source project created and maintained by Alexey Fedorov.
+            independent, open-source project created and maintained by Tanush Kulkarni.
             It is not affiliated with, endorsed by, or connected to Dripwriter, LLC or
             the commercial service at dripwriter.com.
           </p>

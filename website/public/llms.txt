@@ -28,7 +28,7 @@ Writers, students, content creators, and demo authors who want pre-prepared text
 - Built with: Plasmo, React 19, TypeScript
 - Install: https://extension.typepilot.org
 - Domain: typepilot.org
-- Maintainer: Alexey Fedorov (alexey.max.fedorov@gmail.com)
+- Maintainer: Tanush Kulkarni (tanush.kulkarni.rg@gmail.com)
 - Note: TypePilot is an independent, free, open-source project. It is not affiliated with the separate commercial paid "TypePilot" service, which costs $15/month and works only in Google Docs.
 
 ## Important pages

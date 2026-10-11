@@ -28,7 +28,7 @@ const sections = [
   },
   {
     heading: "Notices",
-    body: 'You must ensure that anyone who gets a copy of any part of the software from you also gets a copy of these terms or the URL for them above, as well as copies of any plain-text lines beginning with "Required Notice:" that the licensor provided with the software. Required Notice: Copyright (c) 2026 Alexey Fedorov.'
+    body: 'You must ensure that anyone who gets a copy of any part of the software from you also gets a copy of these terms or the URL for them above, as well as copies of any plain-text lines beginning with "Required Notice:" that the licensor provided with the software. Required Notice: Copyright (c) 2026 Tanush Kulkarni.'
   },
   {
     heading: "Changes and New Works License",
@@ -102,16 +102,16 @@ export default function LicensePage() {
           </h1>
 
           <p className="text-[#a0a0a0] text-base sm:text-lg leading-relaxed mb-4">
-            Copyright &copy; 2026 Alexey Fedorov. All rights reserved.
+            Copyright &copy; 2026 Tanush Kulkarni. All rights reserved.
           </p>
           <p className="text-[#a0a0a0] text-base leading-relaxed mb-12">
             TypePilot is free for all noncommercial use under the terms
             below. For commercial use, contact{" "}
             <a
-              href="mailto:alexey.max.fedorov@gmail.com"
+              href="mailto:tanush.kulkarni.rg@gmail.com"
               className="text-[#c9a84c] hover:underline"
             >
-              alexey.max.fedorov@gmail.com
+              tanush.kulkarni.rg@gmail.com
             </a>
             .
           </p>

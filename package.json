@@ -3,7 +3,7 @@
   "displayName": "TypePilot",
   "version": "3.2.0",
   "description": "Simulates human typing on any website — Google Docs, Canvas, and more: natural speed, realistic typos, false starts, and breaks.",
-  "author": "Alexey Fedorov",
+  "author": "Tanush Kulkarni",
   "private": true,
   "type": "module",
   "repository": {

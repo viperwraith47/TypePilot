@@ -12,10 +12,9 @@ Built with [Plasmo](https://docs.plasmo.com/) + React + TypeScript.
 
 ## Brand Name Clarification
 
-**TypePilot** is an independent, noncommercial open-source project created and maintained by Alexey Fedorov. It is **not affiliated with, endorsed by, or connected to** Dripwriter, LLC or the commercial service at dripwriter.com.
+**TypePilot** is an independent, noncommercial open-source project created and maintained by Tanush Kulkarni. It is **not affiliated with, endorsed by, or connected to** Dripwriter, LLC or the commercial service at dripwriter.com.
 
 Any reference to "Dripwriter" in this project's documentation describes that separate product solely for the purpose of identification and comparison.
-
 
 ## Develop
 
