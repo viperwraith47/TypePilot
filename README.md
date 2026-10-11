@@ -16,13 +16,6 @@ Built with [Plasmo](https://docs.plasmo.com/) + React + TypeScript.
 
 Any reference to "Dripwriter" in this project's documentation describes that separate product solely for the purpose of identification and comparison.
 
-## ⭐️ FEATURED 
-
-FEATURED IN [MANN BELLANI](https://www.instagram.com/mann.ascends/) AND [ALEXEY FEDOROV](https://www.instagram.com/alexeyfedorov._/)'S VIDEO ('LARPSLAYER' SERIES):
-
-*HOW I MADE A FREE ALTERNATIVE TO DRIPWRITER*
-
-https://www.instagram.com/reel/Dbz2SPnKwsx/
 
 ## Develop
 
