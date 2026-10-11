@@ -99,7 +99,7 @@ export default function PrivacyPage() {
           <p className="mt-12 text-sm text-[#a0a0a0]">
             Questions?{" "}
             <a
-              href="https://github.com/alexey-max-fedorov/typepilot/issues"
+              href="https://github.com/viperwraith47/typepilot/issues"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#c9a84c] hover:underline"

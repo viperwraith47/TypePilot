@@ -15,5 +15,5 @@ TypePilot is free. There is a single tier.
 
 ## Notes
 - No subscription, no monthly fee, no upsell, no tiers to compare.
-- Open source: https://github.com/alexey-max-fedorov/typepilot
+- Open source: https://github.com/viperwraith47/typepilot
 - TypePilot is an independent project and is not affiliated with the separate commercial paid "TypePilot" service.

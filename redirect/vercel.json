@@ -51,13 +51,13 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "gh.typepilot.org" }],
-      "destination": "https://github.com/alexey-max-fedorov/typepilot",
+      "destination": "https://github.com/viperwraith47/typepilot",
       "statusCode": 301
     },
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "github.typepilot.org" }],
-      "destination": "https://github.com/alexey-max-fedorov/typepilot",
+      "destination": "https://github.com/viperwraith47/typepilot",
       "statusCode": 301
     },
     {
@@ -75,13 +75,13 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "support.typepilot.org" }],
-      "destination": "https://github.com/alexey-max-fedorov/typepilot/issues/new",
+      "destination": "https://github.com/viperwraith47/typepilot/issues/new",
       "statusCode": 301
     },
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "contact.typepilot.org" }],
-      "destination": "https://github.com/alexey-max-fedorov/typepilot/issues/new",
+      "destination": "https://github.com/viperwraith47/typepilot/issues/new",
       "statusCode": 301
     }
   ]

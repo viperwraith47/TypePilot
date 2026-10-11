@@ -24,7 +24,7 @@ const EASE = [0.25, 0.1, 0.25, 1] as const;
 const CD_HREF = "/cease-and-desist.pdf";
 const RESPONSE_HREF = "/response.png";
 const INSTALL_HREF = "https://extension.typepilot.org";
-const SOURCE_HREF = "https://github.com/alexey-max-fedorov/typepilot";
+const SOURCE_HREF = "https://github.com/viperwraith47/typepilot";
 
 // Proof links point to the Wayback Machine, NOT to the competitor — the link host
 // is web.archive.org, so archive.org receives any link equity and the competitor

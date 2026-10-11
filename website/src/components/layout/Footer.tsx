@@ -13,8 +13,8 @@ const productLinks: FooterLink[] = [
 const resourceLinks: FooterLink[] = [
   { label: "What's New — v3", href: "/v3", gold: true },
   { label: "Mogged — the C&D", href: "/mogged" },
-  { label: "GitHub", href: "https://github.com/alexey-max-fedorov/typepilot", external: true },
-  { label: "Support", href: "https://github.com/alexey-max-fedorov/typepilot/issues", external: true },
+  { label: "GitHub", href: "https://github.com/viperwraith47/typepilot", external: true },
+  { label: "Support", href: "https://github.com/viperwraith47/typepilot/issues", external: true },
   { label: "TypePilot + AI", href: "/ai", gold: true }
 ];
 

@@ -127,7 +127,7 @@ Yes, for personal and noncommercial use. Commercial use requires a separate lice
 
 **OPEN SOURCE**
 
-TypePilot is open source. Source code is available on [GitHub](https://github.com/alexey-max-fedorov/typepilot).
+TypePilot is open source. Source code is available on [GitHub](https://github.com/viperwraith47/typepilot).
 
 
 Created by Alexey Fedorov.

@@ -31,4 +31,4 @@ The Chrome Web Store, Microsoft Edge Add-ons store, and Firefox Add-ons (AMO) ar
 
 ## Contact
 
-Questions? [Open an issue on GitHub](https://github.com/alexey-max-fedorov/typepilot/issues)
+Questions? [Open an issue on GitHub](https://github.com/viperwraith47/typepilot/issues)

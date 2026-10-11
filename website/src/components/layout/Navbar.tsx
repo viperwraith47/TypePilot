@@ -11,8 +11,8 @@ const NAV_LINKS = [
   { label: "V3", href: "/v3", gold: true },
   { label: "Features", href: "/#features" },
   { label: "Install", href: "/#install" },
-  { label: "GitHub", href: "https://github.com/alexey-max-fedorov/typepilot", external: true },
-  { label: "Support", href: "https://github.com/alexey-max-fedorov/typepilot/issues", external: true },
+  { label: "GitHub", href: "https://github.com/viperwraith47/typepilot", external: true },
+  { label: "Support", href: "https://github.com/viperwraith47/typepilot/issues", external: true },
   { label: "TypePilot + AI", href: "/ai", gold: true }
 ];
 

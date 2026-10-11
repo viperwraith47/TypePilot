@@ -79,7 +79,7 @@ const jsonLd = {
         name: "Alexey Fedorov"
       },
       sameAs: [
-        "https://github.com/alexey-max-fedorov/typepilot",
+        "https://github.com/viperwraith47/typepilot",
         "https://chrome.typepilot.org",
         "https://edge.typepilot.org",
         "https://firefox.typepilot.org"
@@ -103,7 +103,7 @@ const jsonLd = {
           name: "Is TypePilot free?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes — TypePilot is free for all noncommercial use under the TypePilot License, and the source is open on GitHub. Commercial use requires a separate license; open an issue at https://github.com/alexey-max-fedorov/typepilot/issues."
+            text: "Yes — TypePilot is free for all noncommercial use under the TypePilot License, and the source is open on GitHub. Commercial use requires a separate license; open an issue at https://github.com/viperwraith47/typepilot/issues."
           }
         },
         {

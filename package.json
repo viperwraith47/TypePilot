@@ -8,10 +8,10 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexey-max-fedorov/typepilot"
+    "url": "https://github.com/viperwraith47/typepilot"
   },
   "bugs": {
-    "url": "https://github.com/alexey-max-fedorov/typepilot/issues"
+    "url": "https://github.com/viperwraith47/typepilot/issues"
   },
   "homepage": "https://typepilot.org",
   "scripts": {

@@ -7,7 +7,7 @@ const faqs = [
   },
   {
     q: "Is TypePilot free?",
-    a: "Yes — TypePilot is free for all noncommercial use under the TypePilot License, and the source is open on GitHub. Commercial use requires a separate license; open an issue at github.com/alexey-max-fedorov/typepilot/issues."
+    a: "Yes — TypePilot is free for all noncommercial use under the TypePilot License, and the source is open on GitHub. Commercial use requires a separate license; open an issue at github.com/viperwraith47/typepilot/issues."
   },
   {
     q: "Which browsers does TypePilot support?",

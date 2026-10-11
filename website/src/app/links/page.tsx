@@ -50,12 +50,12 @@ const groups = [
       },
       {
         subdomain: "gh.typepilot.org",
-        destination: "github.com/alexey-max-fedorov/typepilot",
+        destination: "github.com/viperwraith47/typepilot",
         href: "https://gh.typepilot.org"
       },
       {
         subdomain: "github.typepilot.org",
-        destination: "github.com/alexey-max-fedorov/typepilot",
+        destination: "github.com/viperwraith47/typepilot",
         href: "https://github.typepilot.org"
       }
     ]

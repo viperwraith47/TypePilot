@@ -11,8 +11,8 @@ Standalone Vercel project for TypePilot subdomain redirects. All routing is decl
 | `edge.typepilot.org` | Microsoft Edge Add-ons listing | 301 |
 | `firefox.typepilot.org` | Firefox AMO listing | 301 |
 | `privacy.typepilot.org` | `typepilot.org/privacy` | 301 |
-| `gh.typepilot.org`, `github.typepilot.org` | `github.com/alexey-max-fedorov/typepilot` | 301 |
-| `support.typepilot.org`, `contact.typepilot.org` | `github.com/alexey-max-fedorov/typepilot/issues/new` | 301 |
+| `gh.typepilot.org`, `github.typepilot.org` | `github.com/viperwraith47/typepilot` | 301 |
+| `support.typepilot.org`, `contact.typepilot.org` | `github.com/viperwraith47/typepilot/issues/new` | 301 |
 
 Every destination carries `?utm_source=<originating-subdomain>.typepilot.org` for attribution.
 

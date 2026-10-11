@@ -426,7 +426,7 @@ export default function V3Launch() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <InstallButton variant="primary" size="lg" showArrow />
-              <Button variant="outline" size="lg" href="https://github.com/alexey-max-fedorov/typepilot" external>
+              <Button variant="outline" size="lg" href="https://github.com/viperwraith47/typepilot" external>
                 View the source
               </Button>
             </div>
