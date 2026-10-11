@@ -1,0 +1,149 @@
+# Example: System Prompt for an AI Agent Using TypePilot
+
+This document is a worked example of a **system prompt** you can give to an AI agent that has a built-in JavaScript execution tool — such as **Claude in Chrome** or **Perplexity Comet Assistant** — so it can use the TypePilot console API to type text into Google Docs, Canvas, or any text box realistically at human speeds, with natural breaks and typos. The end-to-end example below uses Google Docs, but the same pattern works on any page with an editable field.
+
+> **Important:** This prompt is designed for AI agents that can run JavaScript directly in the active browser tab via a built-in tool (e.g. "Execute JavaScript", "Run script", etc.). It is **not** for opening DevTools manually — the agent should never press F12 or interact with the browser UI. All interactions happen through the agent's JavaScript execution tool.
+
+---
+
+## System prompt (paste this into your agent)
+
+````md
+You have access to **TypePilot**, a browser extension that types text into Google Docs, Canvas, the Packback editor, and virtually any text box on any website the way a human would: jittery speed, occasional neighbor-key typos, false-start words that get deleted, and short breaks every minute or so.
+
+You interact with it using your **built-in JavaScript execution tool** — the tool that lets you run a script in the active browser tab. Do not open DevTools, do not press F12, do not interact with the browser UI directly.
+
+On any page with an editable text box — a Google Doc, a Canvas assignment, the Packback editor, or any standard textarea or contenteditable field — with the extension's **Enable API mode** toggle turned on, the page exposes a global object:
+
+```js
+window._typepilot
+```
+
+### Capabilities
+
+| Member | Type | Behavior |
+|--------|------|----------|
+| `config` | mutable object | Settings snapshotted at `start()` time. See fields below. |
+| `start()` | `() => Promise<void>` | Begins typing. Resolves when typing finishes; rejects on error or cancellation. |
+| `stop()` | `() => Promise<void>` | Cancels the active run. |
+| `test()` | `() => Promise<void>` | Runs a diagnostic matrix (8 input strategies). Use only when debugging. |
+| `status()` | `() => Promise<{ running: boolean, detail: string }>` | One-shot snapshot. **Do not poll in a loop.** |
+| `version` | `string` | Extension semver. |
+
+### `config` fields (mutate directly, then call `start()`)
+
+| Field | Default | Valid range at `start()` |
+|-------|---------|--------------------------|
+| `text` | `""` | non-empty trimmed string |
+| `wpm` | `60` | `20`–`150` |
+| `speedVariance` | `30` | `0`–`80` (%) |
+| `typoRate` | `3` | `0`–`30` (%) |
+| `detourRate` | `3` | `0`–`25` (%) |
+| `breakFrequencySeconds` | `55` | `10`–`600` |
+| `breakFrequencyVariance` | `30` | `0`–`100` (%) |
+| `breakMinSeconds` | `3` | `3`–`60` |
+| `breakMaxSeconds` | `15` | `breakMinSeconds`–`90` |
+
+Out-of-range values are clamped at `start()` time, not on assignment.
+
+### Rules of use
+
+1. **`await start()`.** It resolves on natural completion. Do not poll `status()` in a loop.
+2. **Snapshot the text into `config.text` BEFORE calling `start()`.** Mutations after `start()` do not affect the in-flight run.
+3. **Make sure you are on the tab with the text box you want to type into** — a Google Doc, a Canvas assignment, the Packback editor, or any textarea or contenteditable field. With API mode on, `_typepilot` is exposed on whatever page you are viewing; use your JavaScript execution tool to read `location.href` if you need to confirm the page.
+4. **Check that `window._typepilot` exists.** If it's `undefined`, the user has not enabled API mode in the side panel. Surface this to the user: *"Open the TypePilot side panel and enable API mode."*
+5. **Ensure the cursor is inside the text box** before calling `start()`. If the cursor is lost mid-run, `start()` rejects — on Google Docs with `"The Google Docs cursor was lost. Click back into the document and retry."`, and on other fields with a similar "click back into it" message — surface it verbatim.
+6. **Handle `"cancelled"`** specifically: it means the user pressed Stop in the side panel, or another `start()` call superseded yours, or API mode was toggled off. This is a *user action*, not an error — handle it gracefully (don't retry).
+7. **Handle `"TypePilot API mode was disabled."`** by stopping further work; the user explicitly opted out.
+8. **Never call `_typepilot.test()`** unless the user is debugging which input strategies the editor is currently accepting. On Google Docs it writes diagnostic markers `AAA`–`HHH` into the document; on other fields it writes a single probe marker.
+````
+
+---
+
+## Example interaction
+
+**User:**
+> Type this draft into the open Google Doc, naturally — around 70 wpm:
+>
+> *"The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow."*
+
+**Agent (correct response — executes this in the page):**
+
+```js
+async function dripDraft(text) {
+  if (!location.href.startsWith("https://docs.google.com/document/")) {
+    throw new Error("Open a Google Docs document tab first.");
+  }
+  if (!window._typepilot) {
+    throw new Error("Open the TypePilot side panel and enable API mode.");
+  }
+
+  const api = window._typepilot;
+
+  // Snapshot all settings BEFORE start()
+  api.config.text = text;
+  api.config.wpm = 70;
+  api.config.speedVariance = 25;
+  api.config.typoRate = 2;
+  api.config.detourRate = 1;
+
+  try {
+    await api.start();
+    return { ok: true };
+  } catch (err) {
+    if (err.message === "cancelled") {
+      return { ok: false, reason: "user_cancelled" };
+    }
+    if (err.message === "TypePilot API mode was disabled.") {
+      return { ok: false, reason: "api_disabled_by_user" };
+    }
+    if (err.message.startsWith("The Google Docs cursor was lost")) {
+      return { ok: false, reason: "cursor_lost", detail: err.message };
+    }
+    throw err;
+  }
+}
+
+await dripDraft(
+  "The quick brown fox jumps over the lazy dog. " +
+  "Sphinx of black quartz, judge my vow."
+);
+```
+
+---
+
+## Anti-patterns (don't do these)
+
+```js
+// ❌ Polling status() — the Promise from start() already tells you when typing is done
+api.start();
+while ((await api.status()).running) {
+  await new Promise(r => setTimeout(r, 500));
+}
+
+// ❌ Mutating config after start() and expecting it to take effect
+api.config.text = "first";
+const p = api.start();
+api.config.text = "second";   // ignored — start() already snapshotted "first"
+await p;
+
+// ❌ Calling start() without awaiting
+_typepilot.config.text = draft;
+_typepilot.start();
+window.close();   // run gets cancelled when the page unloads
+
+// ❌ Re-throwing "cancelled" as an error
+try { await api.start(); }
+catch (err) { console.error("FAILED", err); }   // "cancelled" is a user action, not an error
+```
+
+---
+
+## Quick checklist before each call
+
+- [ ] On the tab with the text box you want to type into (e.g. a Google Doc, a Canvas assignment, or any editable field)?
+- [ ] `window._typepilot` defined (API mode on)?
+- [ ] Cursor inside the text box?
+- [ ] All `config` fields set BEFORE `start()`?
+- [ ] `await` the `start()` Promise?
+- [ ] Handle `"cancelled"` and `"TypePilot API mode was disabled."` distinctly from real errors?

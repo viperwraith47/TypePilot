@@ -1,0 +1,65 @@
+name: Better Dependabot
+
+on:
+  schedule:
+    - cron: "0 0 */3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Install pnpm + Node.js ${{ matrix.node-version }}
+      uses: pnpm/setup@v3
+      with:
+        version: "11"
+        runtime: node@${{ matrix.node-version }}
+        install: false
+
+    - name: Update extension dependencies
+      run: |
+        pnpm update --latest
+        # TypeScript 7 is an ESM-only rewrite that dropped the classic
+        # lib/typescript.js CJS entry Next.js 16 / Vercel's builder require,
+        # so it must stay pinned to the 6.x line regardless of --latest.
+        pnpm add -D typescript@^6 -w
+
+    - name: Update website dependencies
+      run: |
+        cd ./website/
+        pnpm update --latest
+        pnpm add -D typescript@^6
+
+    - name: Verify extension still builds
+      run: |
+        pnpm install
+        pnpm run typecheck
+        pnpm run build
+
+    - name: Verify website still builds
+      run: |
+        cd ./website/
+        pnpm install
+        pnpm run build
+
+    - name: Commit with git
+      run: |
+        git pull
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git add .
+        git commit -s -m "Update dependencies" || echo "No changes"
+
+    - name: Push changes to GitHub
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}

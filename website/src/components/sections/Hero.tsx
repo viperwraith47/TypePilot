@@ -1,0 +1,82 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import { Button } from "@/components/ui/Button";
+import { AnimatedText } from "@/components/ui/AnimatedText";
+import { InstallButton } from "@/components/ui/InstallButton";
+import { VERSION_TAG } from "@/lib/version";
+import { MockGoogleDoc } from "@/components/ui/MockGoogleDoc";
+
+export function Hero() {
+  const reduce = useReducedMotion();
+
+  return (
+    <section
+      id="main-content"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16"
+    >
+      <div
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-3xl pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%)"
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
+          backgroundSize: "80px 80px"
+        }}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+        <div className="w-full lg:w-2/3 min-w-0 text-center lg:text-left">
+          <motion.p
+            initial={reduce ? {} : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-[#c9a84c] text-xs font-semibold tracking-[0.3em] uppercase mb-6"
+          >
+            ✦ {VERSION_TAG} · Free & open source
+          </motion.p>
+
+          <h1
+            className="text-5xl sm:text-6xl lg:text-8xl leading-[1.05] text-white mb-6"
+            style={{ fontFamily: "var(--font-playfair-display)" }}
+          >
+            <AnimatedText>Type into any website like a human.</AnimatedText>
+          </h1>
+
+          <motion.p
+            initial={reduce ? {} : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-[#a0a0a0] text-base sm:text-lg leading-relaxed mb-10"
+          >
+            Paste your text. It types itself into Google Docs, Canvas, Packback, or any
+            text box — with real typos, natural pauses, and adjustable speed. Free and
+            open source.
+          </motion.p>
+
+          <motion.div
+            initial={reduce ? {} : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <InstallButton variant="primary" size="lg" showArrow />
+            <Button variant="outline" size="lg" href="/v3">
+              See what’s new in v3
+            </Button>
+          </motion.div>
+        </div>
+
+        <div className="w-full lg:w-1/3 flex-shrink-0 lg:order-first">
+          <MockGoogleDoc />
+        </div>
+      </div>
+    </section>
+  );
+}

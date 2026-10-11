@@ -1,0 +1,161 @@
+TypePilot types your text into any website — Google Docs, Canvas, the Packback editor, and virtually any text box — with natural, human-like cadence: variable speed, realistic typos, false starts, and periodic breaks — so your writing looks and feels like it was typed by hand.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⭐️ FEATURED 
+
+FEATURED IN MANN BELLANI (@mann.ascends) AND ALEXEY FEDOROV (@alexeyfedorov._)'S
+VIDEO ('LARPSLAYER' SERIES): HOW I MADE A FREE ALTERNATIVE TO TYPEPILOT
+https://www.instagram.com/reel/Dbz2SPnKwsx/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+HOW IT WORKS
+
+Paste your text into the TypePilot sidebar. Click where you want typing to begin — a Google Doc, a Canvas assignment, the Packback editor, or any standard textarea or contenteditable field. Press Start. The extension types character by character at a pace you control.
+
+Every detail of the typing rhythm is configurable:
+
+Typing Speed: Set your base speed from 20 to 150 words per minute, with adjustable variance so the pace naturally fluctuates — slower on complex words, faster on familiar ones.
+
+Realistic Typos: At a rate you choose (0-25%), the extension makes keyboard-neighbor mistakes and immediately corrects them, exactly like a real typist catching their own errors.
+
+False Starts: At a configurable rate (0-20%), the extension will begin typing a word, stop, delete it, and continue — the kind of micro-correction that happens naturally when writing.
+
+Natural Breaks: Every 15 to 180 seconds (configurable), the extension pauses for a short rest — 3 to 25 seconds — mimicking the natural pauses a writer takes to think, re-read, or rest their hands.
+
+Diagnostics Mode: Before a long typing session, run the built-in diagnostics to verify the extension can reach your document's active input area.
+
+Enable API Mode: For developers and AI assistants, an optional JavaScript API (window._typepilot) lets external scripts start, stop, and control typing programmatically. Disabled by default; toggle on in the sidebar when needed.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WHO IT'S FOR
+
+Accessibility users: People with motor impairments, repetitive strain injury, essential tremor, or other conditions that make sustained typing painful or difficult can prepare their text using voice dictation, AI writing assistants, or other adaptive tools, then let TypePilot handle the actual keystroke input into Google Docs, Canvas, or any text box.
+
+Students and researchers: Writers who draft content in one tool and need it entered into Google Docs, a Canvas assignment, or a discussion editor like Packback with natural timing.
+
+Content creators: Writers who work across multiple platforms and tools, consolidating their writing into Google Docs and any other web editor.
+
+Professionals with RSI: Anyone managing repetitive strain who needs to minimize keystrokes during a writing session.
+
+Developers and AI automation builders: Build pipelines where an AI agent — Claude, ChatGPT, Gemini, or a custom script — drafts content and TypePilot types it into Google Docs, Canvas, or any text box via the window._typepilot JavaScript API. Full programmatic control over speed, typo simulation, false starts, and breaks, so the output looks genuinely human-written.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+AI INTEGRATION
+
+When API Mode is enabled in the sidebar, the extension exposes a window._typepilot object in the browser console. AI agents and automation scripts can use it to control typing without any human interaction.
+
+Available methods:
+
+_typepilot.start() — begins a typing run using the current config; resolves when the full text has been typed
+_typepilot.stop() — cancels the active run immediately
+_typepilot.status() — returns the current run state and progress detail
+_typepilot.test() — runs the built-in diagnostic check
+
+Set text and options before calling start():
+
+_typepilot.config.text = "Your content here";
+_typepilot.config.wpm = 80;
+
+Full API reference: api.typepilot.org
+Step-by-step AI setup guide: typepilot.org/ai
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SETTINGS
+
+Typing Speed: 20 to 150 words per minute (default: 60 wpm)
+Speed Variance: 0 to 80% variation from base speed (default: 30%)
+Typo Rate: 0 to 25% chance of a corrected mistype per character (default: 3%)
+False Start Rate: 0 to 20% chance of a corrected false start per word (default: 3%)
+Break Frequency: Every 15 to 180 seconds (default: 55 seconds)
+Frequency Variance: 0 to 100% variation in break timing (default: 30%)
+Shortest Break: 3 to 20 seconds (default: 3 seconds)
+Longest Break: 4 to 25 seconds (default: 15 seconds)
+
+All settings persist automatically. Your configuration is saved locally and restored the next time you open the sidebar.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMPATIBLE WITH
+
+Google Docs, Canvas LMS, the Packback editor (including embedded cross-origin iframes), and virtually any standard textarea, input, or contenteditable field on any website. Google Docs has the most finely tuned typing engine; other sites use a verified generic insertion path.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PRIVACY
+
+TypePilot does not collect any data. Your text never leaves your device. Settings are stored locally using Microsoft Edge's storage API. No analytics. No tracking. No network requests to any external server.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FREQUENTLY ASKED QUESTIONS
+
+What is TypePilot?
+TypePilot is a Microsoft Edge extension that types pasted text into Google Docs, Canvas, the Packback editor, and virtually any text box with realistic human cadence — variable speed, natural typos, false starts, and breaks. It is designed for users who need keystroke simulation on the web, particularly as an accessibility tool for people who find sustained typing difficult or painful.
+
+Does TypePilot work on any website?
+Yes. TypePilot types into Google Docs, Canvas LMS, the Packback editor (including cross-origin iframes), and virtually any standard textarea, input, or contenteditable field on any site. Google Docs gets the most finely tuned typing engine; everywhere else uses a verified generic insertion path. Native desktop apps like Microsoft Word are not supported because they aren't web pages.
+
+Does the extension read the page content?
+No. The extension only receives the text you explicitly paste into its sidebar. It never reads, logs, or transmits the content of your document or the page you're typing into.
+
+Can I stop typing in the middle of a session?
+Yes. Open the TypePilot sidebar at any time and press Stop. Typing halts immediately.
+
+Does TypePilot collect any personal data?
+No. All settings and preferences are stored locally on your device using Microsoft Edge's local storage API. No data is transmitted to any external server.
+
+What is the typing speed range?
+TypePilot supports 20 to 150 words per minute, with configurable variance so speed fluctuates naturally rather than staying mechanically constant.
+
+What are false starts?
+A false start is when a typist begins a word, deletes it, and continues. At your configured rate, TypePilot simulates this behavior — typing a partial or complete word, deleting it, and proceeding — making the typing pattern more realistic.
+
+Does TypePilot require a Microsoft account or any login?
+No. The extension requires no account, login, or registration. Install and use immediately.
+
+What is Enable API Mode?
+Enable API Mode is an optional toggle for developers and AI agents. When enabled, the extension exposes a window._typepilot object in the browser console that lets external scripts start, stop, and control the typing session programmatically. It is disabled by default and has no effect on normal use.
+
+Can AI agents like Claude or ChatGPT control TypePilot?
+Yes. When API Mode is enabled, any AI agent or tool that can execute JavaScript in the browser — including Claude, ChatGPT, Gemini, and custom automation scripts — can call window._typepilot.start(), stop(), status(), and test() to drive the typing session. See typepilot.org/ai for a step-by-step setup guide.
+
+Where is the API documentation?
+Full API reference documentation is available at api.typepilot.org. It covers every property and method on window._typepilot, including config fields, error handling patterns, and behavioral details.
+
+Is TypePilot free?
+Yes, for personal and noncommercial use. Commercial use requires a separate license. See the TypePilot license for details.
+
+Does it work with Firefox?
+Yes. A Firefox version is available separately.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PERMISSIONS EXPLAINED
+
+Storage: Saves your settings (speed, variance, typo rate, break timing) and theme preference locally on your device. Nothing is synced or transmitted externally.
+
+Scripting: Required to register the optional API bridge in the page's main JavaScript world, which exposes the window._typepilot interface so developers and AI assistants can drive typing programmatically. The bridge is bundled with the extension, activates only on the page you're working in, and makes no external network requests.
+
+Access to all sites: Required to inject the typing script into whatever page you're working on, because the text box you type into can live on any website — a Google Doc, a Canvas assignment, an embedded editor such as Packback (which loads inside a cross-origin iframe), or any standard textarea or contenteditable field. The script only dispatches keystrokes into the field you've clicked into on the page you're actively viewing. The extension never reads, stores, or transmits page content or browsing history, and makes no external network requests.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPEN SOURCE
+
+TypePilot is open source. Source code is available on GitHub at github.com/alexey-max-fedorov/typepilot.
+
+
+Created by Alexey Fedorov.

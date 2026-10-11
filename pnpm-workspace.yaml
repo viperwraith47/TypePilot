@@ -1,0 +1,36 @@
+packages:
+  - "website"
+
+allowBuilds:
+  ',': true
+  '-': true
+  /: true
+  '@': true
+  a: true
+  b: true
+  c: true
+  d: true
+  e: true
+  esbuild: true
+  h: true
+  i: true
+  l: true
+  n: true
+  o: true
+  p: true
+  r: true
+  s: true
+  t: true
+  u: true
+  '@parcel/watcher': true
+  '@swc/core': true
+  lmdb: true
+  msgpackr-extract: true
+  sharp: true
+
+minimumReleaseAgeExclude:
+  - '@types/node@25.9.1'
+  - '@types/node@26.0.1'
+  - framer-motion@12.42.0
+  - motion-dom@12.42.0
+  - 'nanoid@3.3.14'

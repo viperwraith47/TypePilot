@@ -1,0 +1,88 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "extension.typepilot.org" },
+        { "type": "header", "key": "user-agent", "value": ".*Firefox.*" }
+      ],
+      "destination": "https://addons.mozilla.org/en-US/firefox/addon/typepilot/?utm_source=extension.typepilot.org",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "extension.typepilot.org" },
+        { "type": "header", "key": "user-agent", "value": ".*Edg/.*" }
+      ],
+      "destination": "https://microsoftedge.microsoft.com/addons/detail/typepilot/iglhighcgeehoobmdimegicldnchcaoh?utm_source=extension.typepilot.org",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "extension.typepilot.org" }],
+      "destination": "https://chromewebstore.google.com/detail/cnkagcdjffdfjemggoeaibjlhoeckmgh?utm_source=extension.typepilot.org",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "chrome.typepilot.org" }],
+      "destination": "https://chromewebstore.google.com/detail/cnkagcdjffdfjemggoeaibjlhoeckmgh?utm_source=chrome.typepilot.org",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "edge.typepilot.org" }],
+      "destination": "https://microsoftedge.microsoft.com/addons/detail/typepilot/iglhighcgeehoobmdimegicldnchcaoh?utm_source=edge.typepilot.org",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "firefox.typepilot.org" }],
+      "destination": "https://addons.mozilla.org/en-US/firefox/addon/typepilot/?utm_source=firefox.typepilot.org",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "privacy.typepilot.org" }],
+      "destination": "https://typepilot.org/privacy?utm_source=privacy.typepilot.org",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "gh.typepilot.org" }],
+      "destination": "https://github.com/alexey-max-fedorov/typepilot",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "github.typepilot.org" }],
+      "destination": "https://github.com/alexey-max-fedorov/typepilot",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "api.typepilot.org" }],
+      "destination": "https://typepilot.org/api",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "ai.typepilot.org" }],
+      "destination": "https://typepilot.org/ai",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "support.typepilot.org" }],
+      "destination": "https://github.com/alexey-max-fedorov/typepilot/issues/new",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "contact.typepilot.org" }],
+      "destination": "https://github.com/alexey-max-fedorov/typepilot/issues/new",
+      "statusCode": 301
+    }
+  ]
+}

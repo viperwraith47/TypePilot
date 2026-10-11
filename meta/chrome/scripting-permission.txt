@@ -1,0 +1,5 @@
+The scripting permission is required to register a bridge script that runs in the MAIN world of the page — not the default isolated content-script sandbox — in order to expose window._typepilot to page-level JavaScript. Because the window object is not shared between the MAIN world and the isolated world in Chrome MV3, the bridge must execute in the MAIN world to attach to the page's global scope.
+
+This API enables TypePilot's developer and AI-integration feature. Scripts in the browser console or AI agent tool-use flows can call window._typepilot.start(), .stop(), .status(), and .test() to control typing sessions programmatically on the page the user is working in.
+
+No arbitrary or remote code injection occurs. The bridge script is bundled with the extension and fixed at install time. It does not read page content, access user data, or communicate with any external server.
