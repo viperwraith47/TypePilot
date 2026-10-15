@@ -92,6 +92,9 @@ export function Footer() {
         <div className="mt-16 pt-8 border-t border-[#1a1a1a] flex flex-col sm:flex-row justify-between gap-4">
           <p className="text-xs text-[#a0a0a0]">
             © 2026 Tanush Kulkarni · Noncommercial use free ·{" "}
+            <span className="hidden sm:inline">
+              · Inspired by Alexey Fedorov
+            </span>
             <a
               href="https://github.com/viperwraith47?utm_source=typepilot&utm_medium=footer&utm_campaign=backlink"
               target="_blank"

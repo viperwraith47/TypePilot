@@ -50,6 +50,12 @@ The packaged `*.zip` files in `build/` are tracked in git; the unpacked `build/<
 
 A Next.js marketing site lives in [`website/`](./website) and deploys to `typepilot.org`.
 
+## Inspirations
+
+This project was originally conceived and created by **Alexey Fedorov**, whose vision for a privacy-first, human-like typing simulator laid the foundation for what TypePilot is today. His pioneering work on the Dripwriter Origin concept — and the early prototype that evolved into this extension — continues to inspire the project's direction.
+
+We're grateful for his contributions and the thoughtful decisions that shaped TypePilot's core architecture.
+
 ## License
 
 [TypePilot License](./LICENSE) — noncommercial use is permitted; commercial use requires a separate license.

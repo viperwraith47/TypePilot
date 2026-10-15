@@ -19,8 +19,10 @@ function stateForStatus(status: TypingStatus, settled: StatusState): StatusState
 }
 
 const TITLE = "TypePilot";
-const TITLE_SPLIT = 10;
 const THEME_KEY = "typepilotTheme";
+const STORAGE_KEY = "typepilotSettings";
+
+type SettingsTab = "speed" | "breaks" | "mistakes";
 
 function MixRow({ id, label, unit, min, max, step = 1, value, onChange }: {
   id: string; label: string; unit: string;
@@ -45,14 +47,13 @@ function MixRow({ id, label, unit, min, max, step = 1, value, onChange }: {
               el.style.setProperty("--pct", `${pct}%`);
             }
           }}
+          id={id}
         />
       </div>
       <span className="mr-val"><span>{value}</span><em>{unit}</em></span>
     </div>
   );
 }
-
-const STORAGE_KEY = "typepilotSettings";
 
 export default function PanelView() {
   const [settings, setSettings] = useState<TypePilotSettings>(DEFAULT_SETTINGS);
@@ -62,11 +63,12 @@ export default function PanelView() {
   const [statusState, setStatusState] = useState<StatusState>("idle");
   const [resumable, setResumable] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [titleLen, setTitleLen] = useState(TITLE.length);
   const loaded = useRef(false);
   const themeLoaded = useRef(false);
   const [apiMode, setApiMode] = useState<boolean>(false);
   const apiModeLoaded = useRef(false);
+  const [activeTab, setActiveTab] = useState<SettingsTab>("speed");
+  const [textExpanded, setTextExpanded] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -127,25 +129,6 @@ export default function PanelView() {
     void chrome.storage.local.set({ [API_MODE_STORAGE_KEY]: apiMode });
   }, [apiMode]);
 
-  useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }).then(([tab]) => {
-      if (!tab?.id) return;
-      const key = `title_played_${tab.id}`;
-      chrome.storage.session.get(key).then(r => {
-        if (!r[key]) {
-          chrome.storage.session.set({ [key]: true });
-          setTitleLen(0);
-        }
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    if (titleLen >= TITLE.length) return;
-    const t = setTimeout(() => setTitleLen(l => l + 1), 55);
-    return () => clearTimeout(t);
-  }, [titleLen]);
-
   const sendToActiveTab = useCallback(
     async (
       message: TypePilotMessage,
@@ -195,8 +178,6 @@ export default function PanelView() {
   );
 
   const refreshStatus = useCallback(async () => {
-    // Status polls must not paint an error. A missing target or a blip while
-    // a run is in progress used to flip the bar red and stop the live updates.
     const response = await sendToActiveTab({ type: "GET_STATUS" }, false);
     if (!response) return;
     setStatusDetail(response.status.detail);
@@ -233,9 +214,6 @@ export default function PanelView() {
 
       setStatusDetail(response.status.detail);
       setStatusState(stateForStatus(response.status, "done"));
-
-      // The panel stays open after a run starts so the user can paste the next
-      // chunk and keep typing — closing the surface was a popup-only behavior.
     },
     [settings, sendToActiveTab]
   );
@@ -263,8 +241,6 @@ export default function PanelView() {
     if (!response.status.resumable) {
       setResumable(false);
     }
-
-    // Panel stays open so the user can resume again or start fresh text.
   }, [settings, sendToActiveTab]);
 
   const onDiagnostics = useCallback(async () => {
@@ -272,92 +248,124 @@ export default function PanelView() {
     if (!response) return;
     setResumable(false);
     setStatusDetail(response.status.detail);
-
     setStatusState(stateForStatus(response.status, "done"));
-    // Diagnostics run with live status polling; the panel stays open so the
-    // user can inspect results and re-run.
   }, [sendToActiveTab]);
 
   const update = <K extends keyof TypePilotSettings>(key: K, value: TypePilotSettings[K]) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
+  const tabs: { id: SettingsTab; label: string }[] = [
+    { id: "speed", label: "Speed" },
+    { id: "breaks", label: "Breaks" },
+    { id: "mistakes", label: "Mistakes" }
+  ];
+
   return (
-    <main className="shell">
-      <header className="hero">
-        <h1 className="title">
-          {TITLE.slice(0, Math.min(titleLen, TITLE_SPLIT))}
-          {titleLen > TITLE_SPLIT ? <em>{TITLE.slice(TITLE_SPLIT, titleLen)}</em> : null}
-          {titleLen < TITLE.length && <span className="title-cursor" />}
-        </h1>
+    <main className="glass-shell">
+      {/* Header */}
+      <header className="glass-header">
+        <div className="glass-header__left">
+          <h1 className="glass-title">{TITLE}</h1>
+          <p className="glass-subtitle">Human-like typing engine</p>
+        </div>
         <button
           type="button"
-          className="theme-toggle"
+          className="glass-theme-toggle"
           onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
           aria-label="Toggle theme"
         >
           {theme === "dark" ? "☀️" : "🌙"}
         </button>
-        <ol className="subcopy">
-          <li>Paste text</li>
-          <li>Click where you want to type</li>
-          <li>Hit <kbd>START</kbd></li>
-          <li>Let the extension type it naturally, indistinguishable from a human.</li>
-        </ol>
       </header>
 
-      <section className="status" data-state={statusState}>
+      {/* Status bar */}
+      <div
+        className={`glass-status ${statusState === "error" ? "error" : ""} ${statusState === "running" ? "running" : ""}`}
+        aria-live="polite"
+      >
         {statusDetail}
-      </section>
+      </div>
 
-      <form className="panel" onSubmit={onStart}>
-        <label className="text-block" htmlFor="text">
-          <span className="text-block__label">Text to type</span>
-          <textarea
-            id="text"
-            rows={9}
-            placeholder="Paste the text you want typed into any text box..."
-            value={settings.text}
-            onChange={(e) => update("text", e.target.value)}
-          />
-        </label>
-
-        <div className="mixer">
-
-          {/* Speed */}
-          <div className="mix-group">
-            <div className="mix-options-hd">Options</div>
-            <div className="mix-group-hd">Speed</div>
-            <MixRow id="wpm" label="Typing speed"  unit="wpm" min={20}  max={150} value={settings.wpm}          onChange={v => update("wpm", v)} />
-            <MixRow id="sv"  label="Speed variance" unit="%"   min={0}   max={80}  value={settings.speedVariance} onChange={v => update("speedVariance", v)} />
+      {/* Main form */}
+      <form className="glass-form" onSubmit={onStart}>
+        {/* Text input — collapsible */}
+        <section className={`glass-card glass-card--text ${textExpanded ? "expanded" : "collapsed"}`}>
+          <button
+            type="button"
+            className="glass-card__header text-card__toggle"
+            onClick={() => setTextExpanded(!textExpanded)}
+            aria-expanded={textExpanded}
+            aria-label={textExpanded ? "Collapse text input" : "Expand text input"}
+          >
+            <span className="text-card__label">Text to type</span>
+            <span className={`text-card__chevron ${textExpanded ? "open" : ""}`}>▼</span>
+          </button>
+          <div className={`text-card__body ${textExpanded ? "open" : ""}`}>
+            <textarea
+              id="text"
+              placeholder="Paste the text you want typed into any text box..."
+              value={settings.text}
+              onChange={(e) => update("text", e.target.value)}
+            />
           </div>
+        </section>
 
-          {/* Breaks */}
-          <div className="mix-group">
-            <div className="mix-group-hd">Breaks</div>
-            <MixRow id="bf"   label="Break frequency" unit="s"  min={15} max={180} step={5} value={settings.breakFrequencySeconds}  onChange={v => update("breakFrequencySeconds", v)} />
-            <MixRow id="bfv"  label="Frequency vary"  unit="%"  min={0}  max={100} step={5} value={settings.breakFrequencyVariance} onChange={v => update("breakFrequencyVariance", v)} />
-            <MixRow id="bmin" label="Shortest break"  unit="s"  min={3}  max={20}           value={settings.breakMinSeconds}        onChange={v => update("breakMinSeconds", v)} />
-            <MixRow id="bmax" label="Longest break"   unit="s" min={4}  max={25}           value={settings.breakMaxSeconds}       onChange={v => update("breakMaxSeconds", v)} />
+        {/* Settings tabs */}
+        <section className="glass-card glass-card--settings">
+          <nav className="glass-tabs">
+            {tabs.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                className={`glass-tab ${activeTab === id ? "active" : ""}`}
+                onClick={() => setActiveTab(id)}
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
+          <div className="glass-tab-content">
+            {activeTab === "speed" && (
+              <>
+                <MixRow id="wpm" label="Typing speed" unit="wpm" min={20} max={150}
+                  value={settings.wpm} onChange={v => update("wpm", v)} />
+                <MixRow id="sv" label="Speed variance" unit="%" min={0} max={80}
+                  value={settings.speedVariance} onChange={v => update("speedVariance", v)} />
+              </>
+            )}
+            {activeTab === "breaks" && (
+              <>
+                <MixRow id="bf" label="Break frequency" unit="s" min={15} max={180} step={5}
+                  value={settings.breakFrequencySeconds} onChange={v => update("breakFrequencySeconds", v)} />
+                <MixRow id="bfv" label="Frequency vary" unit="%" min={0} max={100} step={5}
+                  value={settings.breakFrequencyVariance} onChange={v => update("breakFrequencyVariance", v)} />
+                <MixRow id="bmin" label="Shortest break" unit="s" min={3} max={20}
+                  value={settings.breakMinSeconds} onChange={v => update("breakMinSeconds", v)} />
+                <MixRow id="bmax" label="Longest break" unit="s" min={4} max={25}
+                  value={settings.breakMaxSeconds} onChange={v => update("breakMaxSeconds", v)} />
+              </>
+            )}
+            {activeTab === "mistakes" && (
+              <>
+                <MixRow id="typo" label="Typos" unit="%" min={0} max={25}
+                  value={settings.typoRate} onChange={v => update("typoRate", v)} />
+                <MixRow id="fs" label="False starts" unit="%" min={0} max={20}
+                  value={settings.detourRate} onChange={v => update("detourRate", v)} />
+              </>
+            )}
           </div>
+        </section>
 
-          {/* Natural Mistakes */}
-          <div className="mix-group">
-            <div className="mix-group-hd">Natural Mistakes</div>
-            <MixRow id="typo" label="Typos"        unit="%" min={0} max={25} value={settings.typoRate}   onChange={v => update("typoRate", v)} />
-            <MixRow id="fs"   label="False starts" unit="%" min={0} max={20} value={settings.detourRate} onChange={v => update("detourRate", v)} />
-          </div>
-
-        </div>
-
-        <div className="actions">
-          <button type="submit" className="button button--primary">
+        {/* Actions */}
+        <div className="glass-actions">
+          <button type="submit" className="glass-button glass-button--primary">
             Start
           </button>
           {resumable && statusState !== "running" && (
             <button
               type="button"
-              className="button button--ghost"
+              className="glass-button"
               onClick={() => void onResume()}
             >
               Resume
@@ -365,7 +373,7 @@ export default function PanelView() {
           )}
           <button
             type="button"
-            className="button button--ghost"
+            className="glass-button"
             onClick={() => void onDiagnostics()}
           >
             Run Test
@@ -373,7 +381,7 @@ export default function PanelView() {
           {statusState === "running" && (
             <button
               type="button"
-              className="button button--ghost"
+              className="glass-button glass-button--secondary"
               onClick={() => void onStop()}
             >
               Stop
@@ -382,25 +390,30 @@ export default function PanelView() {
         </div>
       </form>
 
-      <footer className="panel-footer">
+      {/* Footer */}
+      <footer className="glass-footer">
         <span className="footer-brand">TypePilot</span>
-        <span className="panel-version">{VERSION_TAG}</span>
+        <span className="footer-version">{VERSION_TAG}</span>
       </footer>
 
-      <div className="api-toggle">
-        <label className="api-toggle__row">
+      {/* API toggle */}
+      <div className="glass-api-toggle">
+        <div className="api-toggle__row">
           <input
             type="checkbox"
+            id="api-toggle"
             checked={apiMode}
             onChange={(e) => setApiMode(e.target.checked)}
           />
-          <span className="api-toggle__label">Enable API mode</span>
+          <label className="api-toggle__label" htmlFor="api-toggle">
+            Enable API mode
+          </label>
           <span
             className="api-toggle__pill"
             aria-hidden
             data-on={apiMode}
           />
-        </label>
+        </div>
         <p className="api-toggle__hint">
           Exposes <code>window._typepilot</code> on the active page. Active immediately — no reload needed.
         </p>
