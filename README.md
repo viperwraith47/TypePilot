@@ -59,3 +59,19 @@ We're grateful for his contributions and the thoughtful decisions that shaped Ty
 ## License
 
 [TypePilot License](./LICENSE) — noncommercial use is permitted; commercial use requires a separate license.
+
+## Optional GitHub OAuth
+
+TypePilot does not require an account. GitHub OAuth is an opt-in feature available
+from the extension sidebar — click **Sign in with GitHub** to authenticate via
+the [PKCE](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow-within-a-browser-extension)
+flow (no client secret is shipped to the browser).
+
+To enable during development:
+
+1. [Register a GitHub OAuth App](https://github.com/settings/developers) with the
+   callback URL `https://<extension-id>.chromiumapp.org/`.
+2. Copy `.env.example` to `.env` and set `GITHUB_CLIENT_ID`.
+3. Rebuild: `pnpm build` (or `pnpm dev` for hot reload).
+
+See `.env.example` for details.

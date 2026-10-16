@@ -84,6 +84,27 @@ export interface BridgeResponse {
   status?: TypingStatus;
 }
 
+// ---- GitHub OAuth (optional sign-in) ----
+
+export const GITHUB_TOKEN_STORAGE_KEY = "typepilotGithubToken";
+export const GITHUB_USER_STORAGE_KEY = "typepilotGithubUser";
+
+/** Minimal GitHub user profile returned by `GET /user`. */
+export interface GithubUser {
+  id: number;
+  login: string;
+  name: string | null;
+  email: string | null;
+  avatar_url: string;
+  html_url: string;
+}
+
+/** Result returned by a successful GitHub OAuth sign-in. */
+export interface GithubAuthResult {
+  token: string;
+  user: GithubUser;
+}
+
 // ---- Frame targeting (background service worker) ----
 
 /**

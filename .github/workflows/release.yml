@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create release with assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: TypePilot ${{ github.ref_name }}
+          files: build/chrome-mv3-prod.zip,build/firefox-mv3-prod.zip
+          generate_release_notes: true
+          body: |
+            ## TypePilot ${{ github.ref_name }}
+
+            Browser extension that simulates human typing on any website — Google Docs, Canvas, and more.
+
+            ### Downloads
+            | File | Browser |
+            |------|---------|
+            | `chrome-mv3-prod.zip` | Chrome / Edge / Brave (MV3) |
+            | `firefox-mv3-prod.zip` | Firefox (MV3) |
+
+            ### Installation
+            **Chrome/Edge:** Go to `chrome://extensions`, enable Developer mode, drag & drop the zip or click "Load unpacked".
+            **Firefox:** Go to `about:debugging`, click "Load Temporary Add-on", select the zip.
+
+            ### How to use
+            1. Install the extension
+            2. Open the side panel (sidebar icon or `Ctrl+Shift+P` → "Show Side Panel")
+            3. Type in any text field — TypePilot simulates natural typing with speed variance, realistic typos, and breaks.

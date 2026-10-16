@@ -10,6 +10,12 @@ import {
   type TypingStatus
 } from "./types";
 import { VERSION_TAG } from "~/lib/version";
+import {
+  signInWithGitHub,
+  signOutOfGitHub,
+  getStoredUser,
+} from "~/lib/github-oauth";
+import type { GithubUser } from "./types";
 
 type StatusState = "idle" | "running" | "error" | "done";
 
@@ -70,6 +76,10 @@ export default function PanelView() {
   const [activeTab, setActiveTab] = useState<SettingsTab>("speed");
   const [textExpanded, setTextExpanded] = useState(true);
 
+  // ---- Optional GitHub OAuth sign-in ----
+  const [githubUser, setGithubUser] = useState<GithubUser | null>(null);
+  const [githubLoading, setGithubLoading] = useState(false);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -128,6 +138,13 @@ export default function PanelView() {
     if (!apiModeLoaded.current) return;
     void chrome.storage.local.set({ [API_MODE_STORAGE_KEY]: apiMode });
   }, [apiMode]);
+
+  // Load GitHub sign-in state on mount (read-only; never blocks core features).
+  useEffect(() => {
+    void getStoredUser().then((user) => {
+      setGithubUser(user);
+    });
+  }, []);
 
   const sendToActiveTab = useCallback(
     async (
@@ -250,6 +267,32 @@ export default function PanelView() {
     setStatusDetail(response.status.detail);
     setStatusState(stateForStatus(response.status, "done"));
   }, [sendToActiveTab]);
+
+  // ---- GitHub OAuth sign-in / sign-out (optional feature) ----
+
+  const onGithubSignIn = useCallback(async () => {
+    setGithubLoading(true);
+    try {
+      const result = await signInWithGitHub();
+      if (result) {
+        setGithubUser(result.user);
+        setStatusDetail(`Signed in as ${result.user.login}`);
+        setStatusState("idle");
+      }
+    } catch (err) {
+      setStatusDetail(
+        err instanceof Error ? err.message : "GitHub sign-in failed."
+      );
+      setStatusState("error");
+    } finally {
+      setGithubLoading(false);
+    }
+  }, []);
+
+  const onGithubSignOut = useCallback(async () => {
+    await signOutOfGitHub();
+    setGithubUser(null);
+  }, []);
 
   const update = <K extends keyof TypePilotSettings>(key: K, value: TypePilotSettings[K]) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
@@ -416,6 +459,43 @@ export default function PanelView() {
         </div>
         <p className="api-toggle__hint">
           Exposes <code>window._typepilot</code> on the active page. Active immediately — no reload needed.
+        </p>
+      </div>
+
+      {/* Optional GitHub sign-in */}
+      <div className="glass-github-auth">
+        {githubUser ? (
+          <div className="github-auth__row">
+            <img
+              className="github-auth__avatar"
+              src={githubUser.avatar_url}
+              alt={githubUser.login}
+              loading="lazy"
+            />
+            <span className="github-auth__name">{githubUser.name ?? githubUser.login}</span>
+            <span className="github-auth__handle">@{githubUser.login}</span>
+            <button
+              type="button"
+              className="github-auth__signout"
+              onClick={() => void onGithubSignOut()}
+              aria-label="Sign out of GitHub"
+            >
+              Sign out
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="github-auth__signin"
+            onClick={() => void onGithubSignIn()}
+            disabled={githubLoading}
+            aria-label="Sign in with GitHub"
+          >
+            {githubLoading ? "Signing in…" : "Sign in with GitHub"}
+          </button>
+        )}
+        <p className="github-auth__hint">
+          Optional authentication — TypePilot works fully without signing in.
         </p>
       </div>
     </main>
